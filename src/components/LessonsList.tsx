@@ -2,42 +2,31 @@ import React, { Dispatch, FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { arrowRight, chevronDown, chevronUp } from "../assets";
 import { SelectedPositionContext } from "../pages/MethodologyItem";
+import { Lesson, Topic } from "../types";
 import ReturnBack from "./ReturnBack";
+import ShowButton from "./ShowButton";
 
-const LessonsList = () => {
-    const lessons = [
-        {
-            id: 1,
-            caption: "Урок 1. Правило квадрата",
-            positions: ["Позиция 1", "Позиция 2", "Позиция 3"]
-        },
-        {
-            id: 2,
-            caption: "Урок 2. Принцип проведения пешки",
-            positions: ["Позиция 1", "Позиция 2", "Позиция 3"]
-        },
-        {
-            id: 3,
-            caption: "Урок 3. Оппозиция",
-            positions: ["Позиция 1", "Позиция 2", "Позиция 3"]
-        },
-        {
-            id: 4,
-            caption: "Урок 3. Оппозиция",
-            positions: ["Позиция 1", "Позиция 2", "Позиция 3"]
-        }
-    ];
+interface LessonsListProps {
+    topic: Topic;
+    setIsVisible: Dispatch<boolean>;
+}
 
+const LessonsList: FC<LessonsListProps> = ({ topic, setIsVisible }) => {
     return (
         <div className='h-full overflow-x-hidden overflow-y-auto '>
             <div className='mb-10'>
                 <ReturnBack />
             </div>
             <div className='mb-6'>
-                <span className='text-3xl font-semibold'>Основы эндшпиля</span>
+                <span className='text-3xl font-semibold'>{topic?.name}</span>
+            </div>
+            <div className='mb-3'>
+                <ShowButton onClick={() => setIsVisible(true)}>
+                    + Добавить урок
+                </ShowButton>
             </div>
             <ul className='flex flex-col gap-8'>
-                {lessons.map((lesson, index) => (
+                {topic?.lessons.map((lesson, index) => (
                     <ListItem
                         key={`lesson_${index}`}
                         lesson={lesson}
@@ -51,7 +40,7 @@ const LessonsList = () => {
 export default LessonsList;
 
 interface ListItemProps {
-    lesson: { id: number; caption: string; positions: string[] };
+    lesson: Lesson;
 }
 
 const ListItem: FC<ListItemProps> = ({ lesson }) => {
@@ -64,7 +53,7 @@ const ListItem: FC<ListItemProps> = ({ lesson }) => {
                     setIsSubmenuOpened(!isSubmenuOpened);
                 }}
                 className={`hover:text-purple-100 flex items-center text-xl cursor-pointer whitespace-nowrap ${text}`}>
-                <span className='mr-2.5'>{lesson.caption}</span>
+                <span className='mr-2.5'>{lesson.name}</span>
                 <div className='w-3'>
                     <img
                         className='w-full h-full'

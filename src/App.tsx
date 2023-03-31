@@ -1,4 +1,3 @@
-import { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout } from "./layout";
 import {
@@ -10,14 +9,13 @@ import {
     NotFoundPage,
     WelcomePage
 } from "./pages";
-
-import { UserService } from "./services";
+import { TopicsPropvider } from "./services";
 
 function App() {
     return (
         <div className='h-full bg-bgcolor text-black font-raleway overflow-auto '>
             <BrowserRouter>
-                <UserService.Provider>
+                <TopicsPropvider>
                     <Routes>
                         <Route
                             path='/'
@@ -51,7 +49,7 @@ function App() {
                                 element={<NotFoundPage />}></Route>
                         </Route>
                     </Routes>
-                </UserService.Provider>
+                </TopicsPropvider>
             </BrowserRouter>
         </div>
     );

@@ -1,6 +1,5 @@
 import React, { FC, useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserService } from "../services";
 
 interface WhoYouIsCardProps {
     role: "student" | "teacher";
@@ -21,12 +20,8 @@ const WhoYouIsCard: FC<WhoYouIsCardProps> = ({ role }) => {
         }
     };
 
-    const [currentUser, setCurrentUser] = useContext(UserService.Context);
     return (
         <Link
-            onClick={() => {
-                setCurrentUser({ isAuth: currentUser.isAuth, role });
-            }}
             to='/advantages'
             className={`w-96 hover:text-white h-72 bg-white shadow-md rounded-[60px] text-center pt-20 px-10 cursor-pointer ${cofig[role].hover}`}>
             <h2 className='font-semibold text-3xl mb-7'>{cofig[role].title}</h2>

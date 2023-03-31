@@ -1,7 +1,6 @@
 import React, { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, H1, InputField, Logo, WhoYouIsLabel } from "../components";
-import { UserService } from "../services";
+import { Button, Controls, H1, Logo, WhoYouIsLabel } from "../components";
 
 interface AuthPageProps {
     type: "register" | "login";
@@ -19,7 +18,7 @@ const loginPageConfig = {
 
 const Auth: FC<AuthPageProps> = ({ type }) => {
     const config = type === "login" ? loginPageConfig : registerPageConfig;
-    const [currentUser, setCurrentUser] = useContext(UserService.Context);
+
     const redirect = useNavigate();
     return (
         <>
@@ -33,14 +32,12 @@ const Auth: FC<AuthPageProps> = ({ type }) => {
             <form
                 action='#'
                 className='w-[450px] flex flex-col gap-[24px] mb-[35px]'>
-                <InputField
-                    label='E-mail'
-                    errorMessage='Такой e-mail уже зарегистрирован'
-                />
-                <InputField
-                    label='Логин'
-                    errorMessage='Такой e-mail уже зарегистрирован'
-                />
+                <Controls.Label>Login</Controls.Label>
+                <Controls.Input />
+
+                <Controls.Label>Password</Controls.Label>
+                <Controls.Input />
+
                 {type === "login" ? (
                     <div className='flex justify-between text-[16px] leading-[19px] pt-[11px]'>
                         <div className='flex gap-[9px] '>
@@ -56,10 +53,10 @@ const Auth: FC<AuthPageProps> = ({ type }) => {
                         </div>
                     </div>
                 ) : (
-                    <InputField
-                        label='Пароль'
-                        errorMessage='Такой e-mail уже зарегистрирован'
-                    />
+                    <>
+                        <Controls.Label>Login again</Controls.Label>
+                        <Controls.Input />
+                    </>
                 )}
             </form>
 
@@ -67,7 +64,6 @@ const Auth: FC<AuthPageProps> = ({ type }) => {
                 <Button
                     onClick={() => {
                         redirect("/home");
-                        setCurrentUser({ isAuth: true, role: "student" });
                     }}>
                     {config.buttonLabel}
                 </Button>

@@ -1,8 +1,7 @@
 import React, { FC, PropsWithChildren, useContext } from "react";
-import { UserService } from "../services";
 
 const WhoYouIsLabel = () => {
-    const [{ role }] = useContext(UserService.Context);
+    const role = "teacher";
 
     const config = {
         student: {

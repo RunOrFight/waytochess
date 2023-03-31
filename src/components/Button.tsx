@@ -6,8 +6,8 @@ const Button: FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <button
             {...props}
-            className='flex justify-center items-center px-[43px] py-[24px] h-[69px] rounded-[60px] bg-blue'>
-            <span className='text-white font-semibold text-[18px] leading-[21px] text-center'>
+            className='flex justify-center items-center px-11 py-6 h-16 rounded-[60px] bg-blue'>
+            <span className='text-white font-semibold text-lg text-center'>
                 {children}
             </span>
         </button>

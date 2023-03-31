@@ -1,29 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
-const TopicsList = () => {
-    const topics = [
-        { id: 1, caption: "Основы эндшпиля" },
-        { id: 2, caption: "Типовые маты в один ход" },
-        { id: 3, caption: "Типовые маты в один ход" },
-        { id: 4, caption: "Основы тактики" },
-        { id: 5, caption: "Основы стратегии" },
-        { id: 6, caption: "Типовые маты в один ход" },
-        { id: 1, caption: "Основы эндшпиля" },
-        { id: 2, caption: "Типовые маты в один ход" },
-        { id: 3, caption: "Типовые маты в один ход" },
-        { id: 4, caption: "Основы тактики" },
-        { id: 5, caption: "Основы стратегии" },
-        { id: 6, caption: "Типовые маты в один ход" }
-    ];
+interface TopicsListProps {
+    topics: any[];
+}
+
+const TopicsList: FC<TopicsListProps> = ({ topics }) => {
     return (
-        <ul className='flex flex-col gap-[30px] h-full w-1/2  overflow-x-hidden overflow-y-auto '>
+        <ul className='flex justify-start items-start gap-5 h-fit w-full flex-wrap overflow-y-auto'>
             {topics.map((topic, index) => (
-                <Link to={`/methodology/${topic.id}`}>
-                    <li className='hover:underline flex items-center font-semibold text-[30px] leading-[35px] cursor-pointer whitespace-nowrap'>
-                        <span className='mr-2.5'>{topic.caption}</span>
-                    </li>
-                </Link>
+                <li key={`topic_${index}`}>
+                    <Link to={`/methodology/${topic.id}`}>
+                        <div className='hover:bg-purple-100 transition-colors hover:text-white flex-col items-center font-semibold  cursor-pointer w-80 border  h-34 p-11  rounded-2xl shadow-lg'>
+                            <span className='text-3xl'>{topic.name}</span>
+                        </div>
+                    </Link>
+                </li>
             ))}
         </ul>
     );

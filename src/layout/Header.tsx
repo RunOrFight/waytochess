@@ -2,10 +2,9 @@ import React, { FC, PropsWithChildren, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Logo } from "../components";
 import { Nav } from ".";
-import { UserService } from "../services";
 
 const Header: FC<PropsWithChildren> = ({ children }) => {
-    const [{ isAuth }, setCurrentUser] = useContext(UserService.Context);
+    const isAuth = true;
     return (
         <header className='h-28 pt-6 flex items-center justify-between'>
             <Link to='/home'>
