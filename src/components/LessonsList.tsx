@@ -1,21 +1,25 @@
-import React, { Dispatch, FC, useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { arrowRight, chevronDown, chevronUp } from "../assets";
-import { SelectedPositionContext } from "../pages/MethodologyItem";
-import { Lesson, Topic } from "../types";
+import React, {Dispatch, FC, useContext, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import {arrowRight, chevronDown, chevronUp} from "../assets";
+import {SelectedPositionContext} from "../pages/MethodologyItem";
+import {Lesson} from "../types";
 import ReturnBack from "./ReturnBack";
 import ShowButton from "./ShowButton";
+import {useAppSelector} from "../store";
+import {methodologyTopicByIdSelector} from "../store/MethodologySlice";
 
 interface LessonsListProps {
-    topic: Topic;
     setIsVisible: Dispatch<boolean>;
 }
 
-const LessonsList: FC<LessonsListProps> = ({ topic, setIsVisible }) => {
+const LessonsList: FC<LessonsListProps> = ({setIsVisible}) => {
+    const {id} = useParams();
+    const topic = useAppSelector(methodologyTopicByIdSelector(id))
+
     return (
         <div className='h-full overflow-x-hidden overflow-y-auto '>
             <div className='mb-10'>
-                <ReturnBack />
+                <ReturnBack/>
             </div>
             <div className='mb-6'>
                 <span className='text-3xl font-semibold'>{topic?.name}</span>
@@ -43,7 +47,7 @@ interface ListItemProps {
     lesson: Lesson;
 }
 
-const ListItem: FC<ListItemProps> = ({ lesson }) => {
+const ListItem: FC<ListItemProps> = ({lesson}) => {
     const [isSubmenuOpened, setIsSubmenuOpened] = useState(false);
     const text = isSubmenuOpened ? "text-purple-100" : "text-black";
     return (
@@ -62,7 +66,7 @@ const ListItem: FC<ListItemProps> = ({ lesson }) => {
                     />
                 </div>
             </div>
-            {isSubmenuOpened && <SubList positions={lesson.positions} />}
+            {isSubmenuOpened && <SubList positions={lesson.positions}/>}
         </li>
     );
 };
@@ -71,7 +75,7 @@ interface SubListProps {
     positions: string[];
 }
 
-const SubList: FC<SubListProps> = ({ positions }) => {
+const SubList: FC<SubListProps> = ({positions}) => {
     const [selectedPosition, setSelectedPosition] = useContext(
         SelectedPositionContext
     );

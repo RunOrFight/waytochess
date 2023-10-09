@@ -1,25 +1,22 @@
-import { useFormik } from "formik";
-import React, { useState } from "react";
-import {
-    Button,
-    Controls,
-    ShowButton,
-    TopicsList,
-    Window
-} from "../components";
-import { useTopics } from "../services";
+import {useFormik} from "formik";
+import React, {useState} from "react";
+import {Button, Controls, ShowButton, TopicsList, Window} from "../components";
+import {useAppDispatch, useAppSelector} from "../store";
+import {addTopic, methodologyTopicsSelector} from "../store/MethodologySlice";
+import uuid from "react-uuid";
 
 const Methodology = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const { addOne, getAll } = useTopics();
-    const topics = getAll();
+    const dispatch = useAppDispatch()
+    const topics = useAppSelector(methodologyTopicsSelector);
+
     const formik = useFormik({
         initialValues: {
             name: "",
             description: ""
         },
         onSubmit: (values) => {
-            addOne(values);
+            dispatch(addTopic({...values, id: uuid(), lessons: []}))
             setIsVisible(false);
             formik.resetForm();
         }
@@ -33,7 +30,7 @@ const Methodology = () => {
                         + Добавить тему
                     </ShowButton>
                 </div>
-                <TopicsList topics={topics} />
+                <TopicsList topics={topics}/>
             </div>
             {isVisible && (
                 <Window setIsVisible={setIsVisible}>

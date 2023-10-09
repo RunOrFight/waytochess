@@ -1,7 +1,7 @@
-import { Lesson } from ".";
+import {Lesson} from ".";
 
 export interface Topic {
-    id: number;
+    id: string;
     name: string;
     description: string;
     lessons: Lesson[];
